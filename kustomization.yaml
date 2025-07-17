@@ -5,18 +5,22 @@ resources:
   # ConfigMaps and Secrets
   - 04_configs/mongodb-configmap.yaml
   - 04_configs/mongodb-secret.yaml
+  - 04_configs/mongodb-pvc.yaml
 
   # Deployments
   - 01_deployments/mongodb-deployment.yaml
   - 01_deployments/backend-deployment.yaml
   - 01_deployments/game-frontend-deployment.yaml
   - 01_deployments/admin-frontend-deployment.yaml
+  - 01_deployments/mongo-express-deployment.yaml
 
   # Services
   - 02_services/mongodb-service.yaml
   - 02_services/backend-service.yaml
   - 02_services/game-frontend-service.yaml
   - 02_services/admin-frontend-service.yaml
+  - 02_services/mongo-express-service.yaml
 
   # Ingress (deploy last)
   - 03_ingress/blindtest-ingress.yaml
+  - 03_ingress/database-ingress.yaml

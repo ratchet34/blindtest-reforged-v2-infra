@@ -11,13 +11,6 @@ spec:
     - host: blindtest.local
       http:
         paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: game-frontend-service
-                port:
-                  number: 80
           - path: /admin
             pathType: Prefix
             backend:
@@ -30,5 +23,12 @@ spec:
             backend:
               service:
                 name: backend-service
+                port:
+                  number: 80
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: game-frontend-service
                 port:
                   number: 80
