@@ -1,0 +1,22 @@
+resources:
+  # Namespaces (deploy first)
+  - 00_namespaces/namespace.yaml
+
+  # ConfigMaps and Secrets
+  - 04_configs/mongodb-configmap.yaml
+  - 04_configs/mongodb-secret.yaml
+
+  # Deployments
+  - 01_deployments/mongodb-deployment.yaml
+  - 01_deployments/backend-deployment.yaml
+  - 01_deployments/game-frontend-deployment.yaml
+  - 01_deployments/admin-frontend-deployment.yaml
+
+  # Services
+  - 02_services/mongodb-service.yaml
+  - 02_services/backend-service.yaml
+  - 02_services/game-frontend-service.yaml
+  - 02_services/admin-frontend-service.yaml
+
+  # Ingress (deploy last)
+  - 03_ingress/blindtest-ingress.yaml

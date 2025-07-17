@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: game-frontend-deployment
+  namespace: blindtest
+  labels:
+    app: game-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: game-frontend
+  template:
+    metadata:
+      labels:
+        app: game-frontend
+    spec:
+      containers:
+        - name: game-frontend
+          image: nginx:latest
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "50m"
+            limits:
+              memory: "128Mi"
+              cpu: "100m"
