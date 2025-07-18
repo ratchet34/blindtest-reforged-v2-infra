@@ -27,3 +27,10 @@ spec:
             limits:
               memory: "128Mi"
               cpu: "100m"
+          volumeMounts:
+            - name: html-content
+              mountPath: /usr/share/nginx/html
+      volumes:
+        - name: html-content
+          configMap:
+            name: admin-frontend-html

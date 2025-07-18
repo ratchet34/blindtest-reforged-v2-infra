@@ -1,0 +1,353 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backend-html
+  namespace: blindtest
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Blindtest Reforged V2 - API Backend</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+            }
+            
+            .container {
+                text-align: center;
+                padding: 3rem;
+                background: rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(10px);
+                border-radius: 20px;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+                max-width: 800px;
+                margin: 2rem;
+            }
+            
+            .logo {
+                font-size: 3.5rem;
+                margin-bottom: 1rem;
+                animation: pulse 2s ease-in-out infinite alternate;
+            }
+            
+            @keyframes pulse {
+                from { transform: scale(1); }
+                to { transform: scale(1.1); }
+            }
+            
+            h1 {
+                font-size: 2.8rem;
+                margin-bottom: 0.5rem;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            }
+            
+            .subtitle {
+                font-size: 1.3rem;
+                margin-bottom: 2rem;
+                opacity: 0.9;
+                color: #87ceeb;
+            }
+            
+            .status {
+                background: rgba(255, 255, 255, 0.2);
+                border: 2px solid #87ceeb;
+                padding: 1rem 2rem;
+                border-radius: 10px;
+                margin: 2rem 0;
+                display: inline-block;
+                font-weight: bold;
+                font-size: 1.1rem;
+            }
+            
+            .api-endpoints {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 1.5rem;
+                margin-top: 2rem;
+            }
+            
+            .endpoint-card {
+                background: rgba(255, 255, 255, 0.15);
+                padding: 1.5rem;
+                border-radius: 15px;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                text-align: left;
+                cursor: pointer;
+            }
+            
+            .endpoint-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.5);
+            }
+            
+            .endpoint-method {
+                display: inline-block;
+                padding: 0.3rem 0.8rem;
+                border-radius: 20px;
+                font-size: 0.8rem;
+                font-weight: bold;
+                margin-bottom: 0.8rem;
+            }
+            
+            .method-get { background: #3498db; }
+            .method-post { background: #e74c3c; }
+            .method-put { background: #f39c12; }
+            .method-delete { background: #e67e22; }
+            
+            .endpoint-path {
+                font-family: 'Courier New', monospace;
+                font-size: 1.1rem;
+                color: #87ceeb;
+                margin-bottom: 0.5rem;
+            }
+            
+            .endpoint-description {
+                font-size: 0.9rem;
+                opacity: 0.8;
+                line-height: 1.4;
+            }
+            
+            .api-stats {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+                gap: 1rem;
+                margin-top: 2rem;
+            }
+            
+            .stat-card {
+                background: rgba(0, 0, 0, 0.2);
+                padding: 1.2rem;
+                border-radius: 10px;
+                border-left: 4px solid #87ceeb;
+            }
+            
+            .stat-label {
+                font-size: 0.9rem;
+                opacity: 0.8;
+                margin-bottom: 0.5rem;
+            }
+            
+            .stat-value {
+                font-size: 1.8rem;
+                font-weight: bold;
+                color: #87ceeb;
+            }
+            
+            .navigation {
+                margin-top: 2rem;
+                padding-top: 2rem;
+                border-top: 1px solid rgba(255, 255, 255, 0.2);
+            }
+            
+            .nav-button {
+                display: inline-block;
+                margin: 0.5rem;
+                padding: 0.8rem 1.5rem;
+                background: rgba(255, 255, 255, 0.2);
+                border: 1px solid rgba(255, 255, 255, 0.3);
+                border-radius: 25px;
+                color: white;
+                text-decoration: none;
+                transition: all 0.3s ease;
+                font-weight: 500;
+            }
+            
+            .nav-button:hover {
+                background: rgba(255, 255, 255, 0.3);
+                transform: scale(1.05);
+            }
+            
+            .health-indicator {
+                display: inline-flex;
+                align-items: center;
+                background: rgba(46, 204, 113, 0.2);
+                padding: 0.5rem 1rem;
+                border-radius: 20px;
+                margin-top: 1rem;
+                border: 1px solid #2ecc71;
+            }
+            
+            .health-dot {
+                width: 10px;
+                height: 10px;
+                background: #2ecc71;
+                border-radius: 50%;
+                margin-right: 0.5rem;
+                animation: blink 1s infinite;
+            }
+            
+            @keyframes blink {
+                0%, 50% { opacity: 1; }
+                51%, 100% { opacity: 0.3; }
+            }
+            
+            @media (max-width: 768px) {
+                .container {
+                    padding: 2rem;
+                    margin: 1rem;
+                }
+                
+                h1 {
+                    font-size: 2.2rem;
+                }
+                
+                .logo {
+                    font-size: 2.8rem;
+                }
+                
+                .api-endpoints {
+                    grid-template-columns: 1fr;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="logo">🔌</div>
+            <h1>API Backend</h1>
+            <p class="subtitle">Blindtest Reforged V2 - RESTful API Service</p>
+            
+            <div class="status">
+                🚀 Backend Infrastructure Pod Ready
+            </div>
+            
+            <div class="health-indicator">
+                <div class="health-dot"></div>
+                <span>API Service Healthy</span>
+            </div>
+            
+            <div class="api-endpoints">
+                <div class="endpoint-card">
+                    <span class="endpoint-method method-get">GET</span>
+                    <div class="endpoint-path">/api/health</div>
+                    <div class="endpoint-description">Health check endpoint to verify API service status</div>
+                </div>
+                
+                <div class="endpoint-card">
+                    <span class="endpoint-method method-get">GET</span>
+                    <div class="endpoint-path">/api/games</div>
+                    <div class="endpoint-description">Retrieve list of available games and game sessions</div>
+                </div>
+                
+                <div class="endpoint-card">
+                    <span class="endpoint-method method-post">POST</span>
+                    <div class="endpoint-path">/api/games</div>
+                    <div class="endpoint-description">Create a new blindtest game session</div>
+                </div>
+                
+                <div class="endpoint-card">
+                    <span class="endpoint-method method-get">GET</span>
+                    <div class="endpoint-path">/api/songs</div>
+                    <div class="endpoint-description">Get music library and song metadata</div>
+                </div>
+                
+                <div class="endpoint-card">
+                    <span class="endpoint-method method-post">POST</span>
+                    <div class="endpoint-path">/api/auth/login</div>
+                    <div class="endpoint-description">User authentication and session management</div>
+                </div>
+                
+                <div class="endpoint-card">
+                    <span class="endpoint-method method-get">GET</span>
+                    <div class="endpoint-path">/api/leaderboard</div>
+                    <div class="endpoint-description">Fetch player rankings and high scores</div>
+                </div>
+            </div>
+            
+            <div class="api-stats">
+                <div class="stat-card">
+                    <div class="stat-label">Response Time</div>
+                    <div class="stat-value">45ms</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Requests/Min</div>
+                    <div class="stat-value">127</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Success Rate</div>
+                    <div class="stat-value">99.8%</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Active Connections</div>
+                    <div class="stat-value">23</div>
+                </div>
+            </div>
+            
+            <div class="navigation">
+                <h3>🛣️ Service Navigation:</h3>
+                <a href="/" class="nav-button">🎵 Game Frontend</a>
+                <a href="/admin" class="nav-button">⚙️ Admin Panel</a>
+                <a href="/database" class="nav-button">🗄️ Database Admin</a>
+            </div>
+            
+            <p style="margin-top: 2rem; opacity: 0.7; font-size: 0.9rem;">
+                🏗️ Kubernetes Infrastructure Pod | Pod IP: <span id="pod-info">Loading...</span>
+            </p>
+        </div>
+        
+        <script>
+            // Add some interactivity
+            document.addEventListener('DOMContentLoaded', function() {
+                // Simulate loading pod information
+                setTimeout(() => {
+                    document.getElementById('pod-info').textContent = 'backend-pod-' + Math.random().toString(36).substr(2, 8);
+                }, 1000);
+                
+                // Add click effects to endpoint cards
+                const cards = document.querySelectorAll('.endpoint-card');
+                cards.forEach(card => {
+                    card.addEventListener('click', function() {
+                        this.style.transform = 'scale(0.95)';
+                        setTimeout(() => {
+                            this.style.transform = 'translateY(-5px)';
+                        }, 150);
+                    });
+                });
+                
+                // Animate stats on load
+                const statValues = document.querySelectorAll('.stat-value');
+                statValues.forEach(stat => {
+                    const finalValue = stat.textContent;
+                    stat.textContent = '0';
+                    
+                    setTimeout(() => {
+                        let current = 0;
+                        const target = parseInt(finalValue) || finalValue;
+                        
+                        if (typeof target === 'number') {
+                            const increment = target / 50;
+                            const timer = setInterval(() => {
+                                current += increment;
+                                if (current >= target) {
+                                    stat.textContent = finalValue;
+                                    clearInterval(timer);
+                                } else {
+                                    stat.textContent = Math.floor(current);
+                                }
+                            }, 30);
+                        } else {
+                            stat.textContent = finalValue;
+                        }
+                    }, 500);
+                });
+            });
+        </script>
+    </body>
+    </html>

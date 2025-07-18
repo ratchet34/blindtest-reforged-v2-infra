@@ -20,6 +20,10 @@ spec:
           image: nginx:latest
           ports:
             - containerPort: 80
+          volumeMounts:
+            - name: html-content
+              mountPath: /usr/share/nginx/html
+              readOnly: true
           resources:
             requests:
               memory: "64Mi"
@@ -27,3 +31,7 @@ spec:
             limits:
               memory: "128Mi"
               cpu: "100m"
+      volumes:
+        - name: html-content
+          configMap:
+            name: game-frontend-html

@@ -6,6 +6,9 @@ resources:
   - 04_configs/mongodb-configmap.yaml
   - 04_configs/mongodb-secret.yaml
   - 04_configs/mongodb-pvc.yaml
+  - 04_configs/game-frontend-html.yaml
+  - 04_configs/admin-frontend-html.yaml
+  - 04_configs/backend-html.yaml
 
   # Deployments
   - 01_deployments/mongodb-deployment.yaml

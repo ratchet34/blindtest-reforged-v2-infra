@@ -1,0 +1,273 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: admin-frontend-html
+  namespace: blindtest
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Blindtest Reforged V2 - Admin Panel</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+            }
+            
+            .container {
+                text-align: center;
+                padding: 3rem;
+                background: rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(10px);
+                border-radius: 20px;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+                max-width: 700px;
+                margin: 2rem;
+            }
+            
+            .logo {
+                font-size: 3.5rem;
+                margin-bottom: 1rem;
+                animation: rotate 3s linear infinite;
+            }
+            
+            @keyframes rotate {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
+            
+            h1 {
+                font-size: 2.8rem;
+                margin-bottom: 0.5rem;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            }
+            
+            .subtitle {
+                font-size: 1.3rem;
+                margin-bottom: 2rem;
+                opacity: 0.9;
+                color: #ffd700;
+            }
+            
+            .status {
+                background: rgba(255, 255, 255, 0.2);
+                border: 2px solid #ffd700;
+                padding: 1rem 2rem;
+                border-radius: 10px;
+                margin: 2rem 0;
+                display: inline-block;
+                font-weight: bold;
+                font-size: 1.1rem;
+            }
+            
+            .admin-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 1.5rem;
+                margin-top: 2rem;
+            }
+            
+            .admin-card {
+                background: rgba(255, 255, 255, 0.15);
+                padding: 2rem;
+                border-radius: 15px;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                cursor: pointer;
+            }
+            
+            .admin-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.5);
+            }
+            
+            .admin-card h3 {
+                margin-bottom: 1rem;
+                color: #ffd700;
+                font-size: 1.4rem;
+            }
+            
+            .admin-card .icon {
+                font-size: 2.5rem;
+                margin-bottom: 1rem;
+                display: block;
+            }
+            
+            .quick-stats {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 1rem;
+                margin-top: 2rem;
+            }
+            
+            .stat-item {
+                background: rgba(0, 0, 0, 0.2);
+                padding: 1rem;
+                border-radius: 10px;
+                border-left: 4px solid #ffd700;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+                font-weight: bold;
+                color: #ffd700;
+                display: block;
+            }
+            
+            .navigation {
+                margin-top: 2rem;
+                padding-top: 2rem;
+                border-top: 1px solid rgba(255, 255, 255, 0.2);
+            }
+            
+            .nav-button {
+                display: inline-block;
+                margin: 0.5rem;
+                padding: 0.8rem 1.5rem;
+                background: rgba(255, 255, 255, 0.2);
+                border: 1px solid rgba(255, 255, 255, 0.3);
+                border-radius: 25px;
+                color: white;
+                text-decoration: none;
+                transition: all 0.3s ease;
+                font-weight: 500;
+            }
+            
+            .nav-button:hover {
+                background: rgba(255, 255, 255, 0.3);
+                transform: scale(1.05);
+            }
+            
+            @media (max-width: 768px) {
+                .container {
+                    padding: 2rem;
+                    margin: 1rem;
+                }
+                
+                h1 {
+                    font-size: 2.2rem;
+                }
+                
+                .logo {
+                    font-size: 2.8rem;
+                }
+                
+                .admin-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="logo">⚙️</div>
+            <h1>Admin Panel</h1>
+            <p class="subtitle">Blindtest Reforged V2 - Administration</p>
+            
+            <div class="status">
+                🔧 Admin Infrastructure Pod Ready
+            </div>
+            
+            <div class="admin-grid">
+                <div class="admin-card">
+                    <span class="icon">👥</span>
+                    <h3>User Management</h3>
+                    <p>Manage users, permissions, and access levels for the Blindtest platform.</p>
+                </div>
+                <div class="admin-card">
+                    <span class="icon">🎵</span>
+                    <h3>Game Configuration</h3>
+                    <p>Configure game settings, playlists, and scoring mechanisms.</p>
+                </div>
+                <div class="admin-card">
+                    <span class="icon">📊</span>
+                    <h3>Analytics Dashboard</h3>
+                    <p>View detailed statistics, player performance, and system metrics.</p>
+                </div>
+                <div class="admin-card">
+                    <span class="icon">🔧</span>
+                    <h3>System Settings</h3>
+                    <p>Configure system parameters, maintenance mode, and integrations.</p>
+                </div>
+            </div>
+            
+            <div class="quick-stats">
+                <div class="stat-item">
+                    <span class="stat-number">42</span>
+                    <span>Active Users</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">156</span>
+                    <span>Games Played</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">1,337</span>
+                    <span>Songs in Library</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">99.9%</span>
+                    <span>Uptime</span>
+                </div>
+            </div>
+            
+            <div class="navigation">
+                <h3>🛣️ Quick Navigation:</h3>
+                <a href="/" class="nav-button">🎵 Game Frontend</a>
+                <a href="/api" class="nav-button">🔌 API Backend</a>
+                <a href="/database" class="nav-button">🗄️ Database Admin</a>
+            </div>
+            
+            <p style="margin-top: 2rem; opacity: 0.7; font-size: 0.9rem;">
+                🏗️ Kubernetes Infrastructure Pod | Pod IP: <span id="pod-info">Loading...</span>
+            </p>
+        </div>
+        
+        <script>
+            // Add some interactivity
+            document.addEventListener('DOMContentLoaded', function() {
+                // Simulate loading pod information
+                setTimeout(() => {
+                    document.getElementById('pod-info').textContent = 'admin-frontend-pod-' + Math.random().toString(36).substr(2, 8);
+                }, 1000);
+                
+                // Add click effects to admin cards
+                const cards = document.querySelectorAll('.admin-card');
+                cards.forEach(card => {
+                    card.addEventListener('click', function() {
+                        this.style.transform = 'scale(0.95)';
+                        setTimeout(() => {
+                            this.style.transform = 'translateY(-5px)';
+                        }, 150);
+                    });
+                });
+                
+                // Animate statistics on load
+                const statNumbers = document.querySelectorAll('.stat-number');
+                statNumbers.forEach(stat => {
+                    const finalValue = stat.textContent;
+                    stat.textContent = '0';
+                    
+                    setTimeout(() => {
+                        stat.style.transition = 'all 1s ease';
+                        stat.textContent = finalValue;
+                    }, 500);
+                });
+            });
+        </script>
+    </body>
+    </html>
