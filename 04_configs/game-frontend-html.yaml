@@ -114,6 +114,17 @@ data:
                 font-family: 'Courier New', monospace;
             }
             
+            .route a {
+                color: #87ceeb;
+                text-decoration: none;
+                transition: color 0.3s ease;
+            }
+            
+            .route a:hover {
+                color: #ffd700;
+                text-decoration: underline;
+            }
+            
             @media (max-width: 768px) {
                 .container {
                     padding: 2rem;
@@ -162,16 +173,16 @@ data:
             <div class="routes">
                 <h3>🛣️ Available Routes:</h3>
                 <div class="route">
-                    <strong>Game Frontend:</strong> <code>http://blindtest.local/</code>
+                    <strong>Game Frontend:</strong> <a href="/"><code>http://blindtest.local/</code></a>
                 </div>
                 <div class="route">
-                    <strong>Admin Frontend:</strong> <code>http://blindtest.local/admin</code>
+                    <strong>Admin Frontend:</strong> <a href="/admin"><code>http://blindtest.local/admin</code></a>
                 </div>
                 <div class="route">
-                    <strong>Backend API:</strong> <code>http://blindtest.local/api</code>
+                    <strong>Backend API:</strong> <a href="/api"><code>http://blindtest.local/api</code></a>
                 </div>
                 <div class="route">
-                    <strong>Database Admin:</strong> <code>http://blindtest.local/database</code>
+                    <strong>Database Admin:</strong> <a href="/database"><code>http://blindtest.local/database</code></a>
                 </div>
             </div>
             
